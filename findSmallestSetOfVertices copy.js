@@ -97,6 +97,11 @@ function sortConnections (edges) {
 
 let n = 6
 let edges = [[0,1],[0,2],[2,5],[3,4],[4,2]]
+let edgesObj = { '0': [ 1, 2 ], '2': [ 5 ], '3': [ 4 ], '4': [ 2 ] }
+
+// console.log(findNeighbors(0, edgesObj))
+
+// console.log(depthSearchCount(6, edgesObj));
 console.log(findSmallestSetOfVertices(n, edges));
 
 n=5
