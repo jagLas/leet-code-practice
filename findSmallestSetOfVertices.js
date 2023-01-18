@@ -1,5 +1,7 @@
 var findSmallestSetOfVertices = function(n, edges) {
     const edgesObj = sortConnections(edges);
+    const depthObj = makeDepthObject(n, edgesObj)
+
     const vertices = [];
     //repeat algorithm until all edges have been removed
     while (edgesObj.length > 0) {
@@ -7,11 +9,10 @@ var findSmallestSetOfVertices = function(n, edges) {
         //finds the node which hits the highest amount of connected nodes
         let highestCount = -Infinity;
         let highestNode;
-        for (let i = 0; i < n; i++) {
-            let nodeCount = depthSearchCount(i, edgesObj);
-            if (nodeCount > highestCount) {
-                highestCount = nodeCount;
-                highestNode = i;
+        for (const node in depthObj) {
+            if (depthObj[node] > highestCount) {
+                highestCount = depthObj[node];
+                highestNode = Number(node);
             }
         }
 
@@ -19,13 +20,24 @@ var findSmallestSetOfVertices = function(n, edges) {
         vertices.push(highestNode);
 
         //remove all edges visited from largest set
-        edges = depthSearchDelete(highestNode, edgesObj);
+        edges = depthSearchDelete(highestNode, edgesObj, depthObj);
     }
+    
 
     return vertices;
 };
 
-function depthSearchDelete (node, edgesObj) {
+function makeDepthObject (n, edgesObj) {
+    depthObj = {};
+
+    for (let i = 0; i < n; i++) {
+        depthObj[i] = depthSearchCount(i, edgesObj)
+    }
+
+    return depthObj;
+}
+
+function depthSearchDelete (node, edgesObj, depthObj) {
     const stack = [node];
     const visited = new Set([node]);
 
@@ -43,6 +55,7 @@ function depthSearchDelete (node, edgesObj) {
         //remove all edges from the node from the array
         if (edgesObj[currentNode]){
             delete edgesObj[currentNode]
+            delete depthObj[currentNode]
             edgesObj.length--;
         }
 
@@ -101,5 +114,4 @@ console.log(findSmallestSetOfVertices(n, edges));
 
 n=5
 edges = [[0,1],[2,1],[3,1],[1,4],[2,4]]
-// console.log(depthSearchDelete(3, edges))
-console.log(findSmallestSetOfVertices(n, edges));
+// console.log(findSmallestSetOfVertices(n, edges));
