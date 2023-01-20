@@ -70,7 +70,7 @@ function makeGraph(wordList) {
             //got character by character through paris of words and increment each time char is same
             let sameLetterCount = 0;
             for (let k = 0; k < wordLengths; k++){
-                if (word1.charCodeAt(k) === word2.charCodeAt(k)) {
+                if (word1[k] === word2[k]) {
                     sameLetterCount++;
                 }
             }
@@ -90,10 +90,10 @@ function makeGraph(wordList) {
 
 
 
-// beginWord = 'hit'
-// endWord = "cog"
-// wordList = ["hot","dot","dog","lot","log","cog"]
-// console.log(ladderLength(beginWord, endWord, wordList))
+beginWord = 'hit'
+endWord = "cog"
+wordList = ["hot","dot","dog","lot","log","cog"]
+console.log(ladderLength(beginWord, endWord, wordList))
 
 beginWord = 'hit'
 endWord = "cog"
